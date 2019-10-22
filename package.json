@@ -11,7 +11,10 @@
   "scripts": {
     "start": "npm-run-all -p -l start:*",
     "start:server": "cd server && node server.js",
-    "start:client": "cd client && yarn start"
+    "start:client": "cd client && yarn start",
+    "install:client": "cd client && yarn install",
+    "install:server": "cd server && yarn install",
+    "postinstall": "run-p install:*"
   },
   "browserslist": {
     "production": [

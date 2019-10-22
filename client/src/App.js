@@ -1,30 +1,27 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-class App extends React.Component {
-  state = {
-    posts: [],
-  };
+import MainLayout from './components/layout/MainLayout/MainLayout';
 
-  componentDidMount() {
-    fetch('http://localhost:8000/api/posts')
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ posts: res });
-      });
-  }
+// import routes
+import Home from './components/pages/Home/HomePages';
+import Posts from './components/pages/Posts/PostsPages';
+import SinglePost from './components/pages/SinglePost/SinglePostPages';
+import NewPost from './components/pages/NewPost/NewPostPages';
+import Contact from './components/pages/Contact/ContactPages';
+import NotFound from './components/pages/NotFound/NotFound';
 
-  render() {
-    const { posts } = this.state;
-    return (
-      <div>
-        <ul>
-          {posts.map(post => (
-            <li key={post.id}>{post.title}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <MainLayout>
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/posts/new" component={NewPost} />
+      <Route path="/posts/:id" component={SinglePost} />
+      <Route path="/posts" exact component={Posts} />
+      <Route path="/contact" exact component={Contact} />
+      <Route component={NotFound} />
+    </Switch>
+  </MainLayout>
+);
 
 export default App;
