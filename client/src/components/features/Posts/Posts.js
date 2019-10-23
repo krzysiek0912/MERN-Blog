@@ -1,6 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
+import PostsList from '../PostsList/PostsList';
+import Spinner from '../../common/Spinner/Spinner';
+import Alert from '../../common/Alert/Alert';
+
 class Posts extends React.Component {
   componentDidMount() {
     const { loadPosts } = this.props;
@@ -8,18 +12,19 @@ class Posts extends React.Component {
   }
 
   render() {
-    const { posts } = this.props;
-
-    return (
-      <div>
-        Posts
-        <ul>
-          {posts.map(post => (
-            <li key={post.id}>{post.title}</li>
-          ))}
-        </ul>
-      </div>
-    );
+    const { posts, request } = this.props;
+    const { pending, error, success } = request;
+    let postsView;
+    if (pending === false) {
+      if (success === true && posts.length > 0) {
+        postsView = <PostsList posts={posts} />;
+      } else if (error !== null) {
+        postsView = <Alert variant="error"> {error} </Alert>;
+      }
+    } else if (success === null) {
+      postsView = <Spinner />;
+    }
+    return <div>{postsView}</div>;
   }
 }
 
