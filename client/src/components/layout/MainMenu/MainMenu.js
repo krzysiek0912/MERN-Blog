@@ -22,7 +22,7 @@ MainMenu.propTypes = {
       path: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
     }),
-  ),
+  ).isRequired,
 };
 
 export default withRouter(props => <MainMenu {...props} />);

@@ -6,7 +6,7 @@ import './SectionTitle.scss';
 const SectionTitle = ({ children }) => <h2 className="section-title">{children}</h2>;
 
 SectionTitle.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.string.isRequired,
 };
 
 export default SectionTitle;

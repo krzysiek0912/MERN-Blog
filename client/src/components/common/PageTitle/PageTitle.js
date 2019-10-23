@@ -6,7 +6,7 @@ import './PageTitle.scss';
 const PageTitle = ({ children }) => <h1 className="page-title">{children}</h1>;
 
 PageTitle.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.string.isRequired,
 };
 
 export default PageTitle;
