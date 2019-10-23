@@ -26,6 +26,6 @@ db.once('open', () => {
 });
 db.on('error', err => console.log(`Error ${err}`));
 
-app.listen(config.PORT, function() {
+app.listen(config.PORT, () => {
   console.log('Server is running on Port:', config.PORT);
 });

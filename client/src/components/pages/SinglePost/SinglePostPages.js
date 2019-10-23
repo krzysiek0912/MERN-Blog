@@ -1,8 +1,9 @@
 import React from 'react';
+import Post from '../../features/Post/PostContainer';
 
-const SinglePost = () => (
+const SinglePost = ({ match }) => (
   <div>
-    <h1>SinglePost</h1>
+    <Post id={match.params.id} />
   </div>
 );
 

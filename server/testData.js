@@ -19,9 +19,7 @@ const loadTestData = async () => {
   try {
     const counter = await Post.countDocuments();
     if (counter === 0) {
-      console.log('No posts. Loading data...');
       await Post.create(data);
-      console.log('Test data has been successfully loaded');
     }
   } catch (err) {
     console.log("Couldn't load test data", err);
