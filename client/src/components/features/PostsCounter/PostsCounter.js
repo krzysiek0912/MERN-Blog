@@ -2,7 +2,9 @@ import React from 'react';
 
 class PostsCounter extends React.Component {
   render() {
-    return <div>Posts counter</div>;
+    const { count } = this.props;
+    const counter = count > 0 ? count : '- no posts -';
+    return <div>{counter}</div>;
   }
 }
 

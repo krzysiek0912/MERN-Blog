@@ -1,6 +1,8 @@
 import axios from 'axios';
 import API_URL from '../config';
 /* SELECTORS */
+export const getPosts = ({ posts }) => posts;
+export const getPostsCount = ({ posts }) => posts.length;
 
 // action name creator
 const reducerName = 'posts';
@@ -37,5 +39,3 @@ export default function reducer(statePart = initialState, action = {}) {
       return statePart;
   }
 }
-
-export const getPosts = ({ posts }) => posts;
