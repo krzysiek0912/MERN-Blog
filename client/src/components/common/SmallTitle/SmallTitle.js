@@ -9,7 +9,7 @@ const SmallTitle = ({ children, ...otherProps }) => (
 );
 
 SmallTitle.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.string.isRequired,
 };
 
 export default SmallTitle;
