@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 const config = require('./config');
 const loadTestData = require('./testData');
 
@@ -9,6 +10,7 @@ const app = express();
 // import routes
 const postRoutes = require('./routes/post.routes');
 
+app.use(helmet());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
