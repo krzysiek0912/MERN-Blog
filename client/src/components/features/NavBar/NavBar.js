@@ -1,12 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MainMenu from '../../layout/MainMenu/MainMenu';
+
+const links = [
+  { path: '/', title: 'Home' },
+  { path: '/posts', title: 'Posts' },
+  { path: '/contact', title: 'Contact' },
+  { path: '/posts/new', title: 'Add post' },
+];
 
 const NavBar = () => (
   <div>
-    <Link to="/">Home</Link>
-    <Link to="/posts">Posts</Link>
-    <Link to="/contact">Contact</Link>
-    <Link to="/posts/new">Add post</Link>
+    <MainMenu links={links} />
   </div>
 );
 
