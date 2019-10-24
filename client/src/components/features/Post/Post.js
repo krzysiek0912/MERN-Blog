@@ -1,29 +1,30 @@
+import './Post.scss';
+
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import PostSummary from '../PostSummary/PostSummary';
-import Spinner from '../../common/Spinner/Spinner';
-import NotFound from '../../pages/NotFound/NotFound';
+import { Link } from 'react-router-dom';
+import Button from '../../common/Button/Button';
+import SmallTitle from '../../common/SmallTitle/SmallTitle';
+import PageTitle from '../../common/PageTitle/PageTitle';
+import HtmlBox from '../../common/HtmlBox/HtmlBox';
+import cutText from '../../../utils/cutText';
 
-class Post extends React.Component {
-  componentDidMount() {
-    const { loadCurentPost, id } = this.props;
-    loadCurentPost(id);
-  }
-
-  render() {
-    const { curentPost, request } = this.props;
-
-    return (
-      <div>
-        {(request.pending && <Spinner />) ||
-          (curentPost && <PostSummary {...curentPost} isSingle />) || <NotFound />}
-      </div>
-    );
-  }
-}
+const Post = ({ id, title, content, isSingle }) => (
+  <article className="post-summary">
+    {isSingle ? <PageTitle>{title}</PageTitle> : <SmallTitle>{title}</SmallTitle>}
+    <HtmlBox>{isSingle ? content : cutText(content, 50)}</HtmlBox>
+    {!isSingle && (
+      <Button variant="primary">
+        <Link to={`/posts/${id}`}>Read more</Link>
+      </Button>
+    )}
+  </article>
+);
 
 Post.propTypes = {
-  loadCurentPost: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };
 
 export default Post;

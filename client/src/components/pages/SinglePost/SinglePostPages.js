@@ -1,10 +1,10 @@
 import React from 'react';
-import Post from '../../features/Post/PostContainer';
+import SinglePost from '../../features/SinglePost/SinglePostContainer';
 
-const SinglePost = ({ match }) => (
+const SinglePostPage = ({ match }) => (
   <div>
-    <Post id={match.params.id} />
+    <SinglePost id={match.params.id} />
   </div>
 );
 
-export default SinglePost;
+export default SinglePostPage;
