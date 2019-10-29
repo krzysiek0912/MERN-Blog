@@ -9,9 +9,10 @@ import PageTitle from '../../common/PageTitle/PageTitle';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
 import cutText from '../../../utils/cutText';
 
-const Post = ({ id, title, content, isSingle }) => (
+const Post = ({ id, title, content, author, isSingle }) => (
   <article className="post-summary">
     {isSingle ? <PageTitle>{title}</PageTitle> : <SmallTitle>{title}</SmallTitle>}
+    <p>Author: {author}</p>
     <HtmlBox>{isSingle ? content : cutText(content, 50)}</HtmlBox>
     {!isSingle && (
       <Button variant="primary">
