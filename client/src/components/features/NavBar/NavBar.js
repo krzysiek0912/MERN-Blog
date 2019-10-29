@@ -1,17 +1,28 @@
 import React from 'react';
 import MainMenu from '../../layout/MainMenu/MainMenu';
+import Logo from '../../common/Logo/Logo';
+import './NavBar.scss';
 
-const links = [
-  { path: '/', title: 'Home' },
-  { path: '/posts', title: 'Posts' },
-  { path: '/contact', title: 'Contact' },
-  { path: '/posts/new', title: 'Add post' },
-];
+class NavBar extends React.Component {
+  state = {
+    links: [
+      { path: '/', title: 'Home' },
+      { path: '/posts/new', title: 'Add post' },
+      { path: '/posts', title: 'Posts' },
+      { path: '/contact', title: 'Contact' },
+    ],
+  };
 
-const NavBar = () => (
-  <div>
-    <MainMenu links={links} />
-  </div>
-);
+  render() {
+    const { links } = this.state;
+
+    return (
+      <nav className="navbar">
+        <Logo />
+        <MainMenu links={links} />
+      </nav>
+    );
+  }
+}
 
 export default NavBar;
