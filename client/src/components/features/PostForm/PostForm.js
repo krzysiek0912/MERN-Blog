@@ -21,6 +21,16 @@ class PostForm extends React.Component {
     },
   };
 
+  componentDidMount() {
+    const { postToEdit } = this.props;
+    if (postToEdit) {
+      const { title, author, content } = postToEdit;
+      this.setState({
+        post: { title, author, content },
+      });
+    }
+  }
+
   componentWillUnmount = () => {
     const { resetRequestObj } = this.props;
     resetRequestObj();
@@ -36,24 +46,27 @@ class PostForm extends React.Component {
     this.setState({ post: { ...post, content: text } });
   };
 
-  addPost = e => {
-    const { addPost } = this.props;
+  handleSubmit = e => {
+    const { addPost, postToEdit, editPost } = this.props;
     const { post } = this.state;
 
     e.preventDefault();
-    addPost(post);
+    if (!postToEdit) {
+      addPost(post);
+    } else {
+      editPost(post);
+    }
   };
 
   render() {
     const { post } = this.state;
-    const { handleChange, handleEditor, addPost } = this;
-    const { request } = this.props;
-
-    if (request.error) return <Alert variant="error">{request.error}</Alert>;
-    if (request.success) return <Alert variant="success">Post has been added!</Alert>;
-    if (request.pending) return <Spinner />;
+    const { handleChange, handleEditor, handleSubmit } = this;
+    const { request, postToEdit } = this.props;
+    // if (request.error) return <Alert variant="error">{request.error}</Alert>;
+    // if (request.success) return <Alert variant="success">Post has been added!</Alert>;
+    // if (request.pending) return <Spinner />;
     return (
-      <form onSubmit={addPost}>
+      <form onSubmit={handleSubmit}>
         <TextField label="Title" value={post.title} onChange={handleChange} name="title" />
 
         <TextField label="Author" value={post.author} onChange={handleChange} name="author" />
@@ -71,7 +84,7 @@ class PostForm extends React.Component {
         />
 
         <Button type="submit" variant="primary">
-          Add post
+          {postToEdit ? 'Edit' : 'Add'}
         </Button>
       </form>
     );
