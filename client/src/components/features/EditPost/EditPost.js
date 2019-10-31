@@ -15,7 +15,8 @@ class EditPost extends React.Component {
 
     return (
       <div>
-        {(request.pending && <Spinner />) || <PostForm postToEdit={editPost} /> || <NotFound />}
+        {(request.pending && <Spinner />) ||
+          (request.success && <PostForm postToEdit={editPost} />)}
       </div>
     );
   }
