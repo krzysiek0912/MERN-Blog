@@ -15,9 +15,14 @@ const Post = ({ id, title, content, author, isSingle }) => (
     <p>Author: {author}</p>
     <HtmlBox>{isSingle ? content : cutText(content, 50)}</HtmlBox>
     {!isSingle && (
-      <Button variant="primary">
-        <Link to={`/posts/${id}`}>Read more</Link>
-      </Button>
+      <>
+        <Button variant="primary">
+          <Link to={`/posts/${id}`}>Read more</Link>
+        </Button>
+        <Button variant="primary">
+          <Link to={`/posts/edit/${id}`}>Edit</Link>
+        </Button>
+      </>
     )}
   </article>
 );

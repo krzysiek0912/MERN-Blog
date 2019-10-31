@@ -1,9 +1,15 @@
 import { connect } from 'react-redux';
-import { getRequest, addPostRequest, resetRequestObj } from '../../../redux/postsRedux';
+import {
+  getRequest,
+  addPostRequest,
+  resetRequestObj,
+  getEditPost,
+} from '../../../redux/postsRedux';
 import PostForm from './PostForm';
 
 const mapStateToProps = state => ({
   request: getRequest(state),
+  editPost: getEditPost(state),
 });
 
 const mapDispatchToProps = dispatch => ({
