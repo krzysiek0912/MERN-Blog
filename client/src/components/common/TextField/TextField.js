@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './TextField.scss';
 
-const TextField = ({ value, label, onChange, ...otherProps }) => (
+const TextField = ({ value, label, name = 'text-field', onChange, ...otherProps }) => (
   <label className="text-field" htmlFor="text-field">
     <span className={`text-field__label ${!value.length > 0 ? 'text-field__label--big' : ''}`}>
       {label}
@@ -11,7 +11,7 @@ const TextField = ({ value, label, onChange, ...otherProps }) => (
     <input
       {...otherProps}
       value={value}
-      name="text-field"
+      name={name}
       onChange={onChange}
       className="text-field__input"
     />
