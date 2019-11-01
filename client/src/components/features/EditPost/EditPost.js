@@ -11,9 +11,9 @@ class EditPost extends React.Component {
   }
 
   render() {
-    const { editPost, request } = this.props;
-
-    return <div>{(request.success && <PostForm postToEdit={editPost} />) || <Spinner />}</div>;
+    const { postToEdit, request } = this.props;
+    const { success } = request.requestEditPost;
+    return <div>{(success && <PostForm postToEdit={postToEdit} />) || <Spinner />}</div>;
   }
 }
 

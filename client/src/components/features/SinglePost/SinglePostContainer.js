@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { getCurentPost, getRequest, loadCurentPostRequest } from '../../../redux/postsRedux';
+import { getCurentPost, loadCurentPostRequest } from '../../../redux/postsRedux';
+import { getRequest } from '../../../redux/requestReducer';
 import SinglePost from './SinglePost';
 
 const mapStateToProps = state => ({

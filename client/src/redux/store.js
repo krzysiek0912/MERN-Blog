@@ -3,10 +3,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 // import reducers
 import posts from './postsRedux';
+import request from './requestReducer';
 
 // combine reducers
 const rootReducer = combineReducers({
   posts,
+  request,
 });
 
 // create store

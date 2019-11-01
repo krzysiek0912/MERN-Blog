@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { getEditPost, getRequest, loadEditPostRequest } from '../../../redux/postsRedux';
+import { getEditPost, loadEditPostRequest } from '../../../redux/postsRedux';
 import EditPost from './EditPost';
+import { getRequest } from '../../../redux/requestReducer';
 
 const mapStateToProps = state => ({
-  editPost: getEditPost(state),
+  postToEdit: getEditPost(state),
   request: getRequest(state),
 });
 

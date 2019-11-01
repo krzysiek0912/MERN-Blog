@@ -8,17 +8,16 @@ import Alert from '../../common/Alert/Alert';
 class Posts extends React.Component {
   componentDidMount() {
     const { loadPosts } = this.props;
-    loadPosts();
+    loadPosts('requestPost');
   }
 
-  componentWillUnmount = () => {
-    const { resetRequestObj } = this.props;
-    resetRequestObj();
-  };
+  // componentWillUnmount = () => {
+  //   const { resetRequestObj } = this.props;
+  // };
 
   render() {
     const { posts, request } = this.props;
-    const { pending, error, success } = request;
+    const { pending, error, success } = request.requestPost;
     let postsView;
     if (pending === false) {
       if (success === true && posts.length > 0) {

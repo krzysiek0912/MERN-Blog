@@ -33,7 +33,7 @@ class PostForm extends React.Component {
 
   componentWillUnmount = () => {
     const { resetRequestObj } = this.props;
-    resetRequestObj();
+    resetRequestObj('requestEditPost');
   };
 
   handleChange = e => {
@@ -62,9 +62,10 @@ class PostForm extends React.Component {
     const { post } = this.state;
     const { handleChange, handleEditor, handleSubmit } = this;
     const { request, postToEdit } = this.props;
-    // if (request.error) return <Alert variant="error">{request.error}</Alert>;
-    // if (request.success) return <Alert variant="success">Post has been added!</Alert>;
-    // if (request.pending) return <Spinner />;
+    const { error, success, pending } = request.request;
+    if (error) return <Alert variant="error">{request.error}</Alert>;
+    if (success) return <Alert variant="success">Post has been added!</Alert>;
+    if (pending) return <Spinner />;
     return (
       <form onSubmit={handleSubmit}>
         <TextField label="Title" value={post.title} onChange={handleChange} name="title" />

@@ -12,10 +12,10 @@ class SinglePost extends React.Component {
 
   render() {
     const { curentPost, request } = this.props;
-
+    const { pending } = request.requestPost;
     return (
       <div>
-        {(request.pending && <Spinner />) || (curentPost && <Post {...curentPost} isSingle />) || (
+        {(pending && <Spinner />) || (curentPost && <Post {...curentPost} isSingle />) || (
           <NotFound />
         )}
       </div>
