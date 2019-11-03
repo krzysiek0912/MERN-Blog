@@ -1,6 +1,5 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
 
 import Editor from 'react-medium-editor';
 import TextField from '../../common/TextField/TextField';
@@ -19,6 +18,7 @@ class PostForm extends React.Component {
       author: '',
       content: '',
     },
+    isEdit: false,
   };
 
   componentDidMount() {
@@ -27,6 +27,7 @@ class PostForm extends React.Component {
       const { title, author, content } = postToEdit;
       this.setState({
         post: { title, author, content },
+        isEdit: true,
       });
     }
   }
@@ -60,18 +61,13 @@ class PostForm extends React.Component {
   };
 
   render() {
-    const { post } = this.state;
+    const { post, isEdit } = this.state;
     const { handleChange, handleEditor, handleSubmit } = this;
     const { request, postToEdit } = this.props;
     const { error, success, pending } = request.requestForm;
     if (error) return <Alert variant="error">{error}</Alert>;
-    if (success)
-      return (
-        <Alert variant="success">
-          Post has been
-          {postToEdit ? ' edited!' : ' added!'}
-        </Alert>
-      );
+    if (success && isEdit) return <Alert variant="success">Post has been edit</Alert>;
+    if (success && !isEdit) return <Alert variant="success">Post has been added</Alert>;
     if (pending) return <Spinner />;
     return (
       <form onSubmit={handleSubmit}>

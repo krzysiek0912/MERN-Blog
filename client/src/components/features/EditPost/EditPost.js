@@ -2,7 +2,6 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import PostForm from '../PostForm/PostFormContainer';
 import Spinner from '../../common/Spinner/Spinner';
-import NotFound from '../../pages/NotFound/NotFound';
 
 class EditPost extends React.Component {
   componentDidMount() {
