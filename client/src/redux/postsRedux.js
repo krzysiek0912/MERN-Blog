@@ -6,8 +6,9 @@ import { startRequest, endRequest, errorRequest } from './requestReducer';
 export const getPosts = ({ posts }) => posts.data;
 export const getPages = ({ posts }) => Math.ceil(posts.amount / posts.postsPerPage);
 export const getCurentPages = ({ posts }) => posts.presentPage;
-export const getCurentPost = ({ posts }) => posts.curentPost[0];
-export const getEditPost = ({ posts }) => posts.editPost[0];
+export const getCurentPost = ({ posts }) => posts.curentPost;
+export const getRandomPost = ({ posts }) => posts.randomPost;
+export const getEditPost = ({ posts }) => posts.editPost;
 export const getPostsCount = ({ posts }) => posts.data.length;
 
 // action name creator
@@ -18,11 +19,13 @@ const createActionName = name => `app/${reducerName}/${name}`;
 export const LOAD_POSTS = createActionName('LOAD_POSTS');
 export const LOAD_POSTS_PAGE = createActionName('LOAD_POSTS_PAGE');
 export const LOAD_CURENT_POST = createActionName('LOAD_CURENT_POST');
+export const LOAD_RANDOM_POST = createActionName('LOAD_RANDOM_POST');
 export const LOAD_EDIT_POST = createActionName('LOAD_EDIT_POST');
 
 export const loadPosts = payload => ({ payload, type: LOAD_POSTS });
 export const loadPostsByPage = payload => ({ payload, type: LOAD_POSTS_PAGE });
 export const loadCurentPost = payload => ({ payload, type: LOAD_CURENT_POST });
+export const loadRandomPost = payload => ({ payload, type: LOAD_RANDOM_POST });
 export const loadEditPost = payload => ({ payload, type: LOAD_EDIT_POST });
 
 /* THUNKS */
@@ -31,7 +34,7 @@ export const loadPostsRequest = () => {
     dispatch(startRequest('requestPost'));
     try {
       const res = await axios.get(`${API_URL}/posts`);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
       dispatch(loadPosts(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -48,7 +51,7 @@ export const loadPostsByPageRequest = (page, postsPerPage = 10) => {
       const limit = postsPerPage;
 
       const res = await axios.get(`${API_URL}/posts/range/${startAt}/${limit}`);
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       const payload = {
         posts: res.data.posts,
@@ -71,7 +74,7 @@ export const loadCurentPostRequest = id => {
     try {
       const res = await axios.get(`${API_URL}/posts/${id}`);
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
       dispatch(loadCurentPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -79,13 +82,29 @@ export const loadCurentPostRequest = id => {
     }
   };
 };
+
+export const loadRandomPostRequest = () => {
+  return async dispatch => {
+    dispatch(startRequest('requestPost'));
+    try {
+      const res = await axios.get(`${API_URL}/posts/random`);
+
+      await new Promise(resolve => setTimeout(resolve, 100));
+      dispatch(loadRandomPost(res.data));
+      dispatch(endRequest('requestPost'));
+    } catch (e) {
+      dispatch(errorRequest(e.message, 'requestPost'));
+    }
+  };
+};
+
 export const loadEditPostRequest = id => {
   return async dispatch => {
     dispatch(startRequest('requestPost'));
     try {
       const res = await axios.get(`${API_URL}/posts/${id}`);
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
       dispatch(loadEditPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -99,7 +118,7 @@ export const addPostRequest = post => {
     dispatch(startRequest('requestForm'));
     try {
       await axios.post(`${API_URL}/posts`, post);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));
@@ -112,7 +131,7 @@ export const editPostRequest = post => {
     dispatch(startRequest('requestForm'));
     try {
       await axios.post(`${API_URL}/update/${post._id}`, post);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));
@@ -124,8 +143,9 @@ export const editPostRequest = post => {
 
 const initialState = {
   data: [],
-  curentPost: [],
-  editPost: [],
+  curentPost: {},
+  editPost: {},
+  randomPost: {},
   amount: 0,
   postsPerPage: 10,
   presentPage: 1,
@@ -147,6 +167,8 @@ export default function reducer(statePart = initialState, action = {}) {
       };
     case LOAD_CURENT_POST:
       return { ...statePart, curentPost: action.payload };
+    case LOAD_RANDOM_POST:
+      return { ...statePart, randomPost: action.payload };
     case LOAD_EDIT_POST:
       return { ...statePart, editPost: action.payload };
     default:

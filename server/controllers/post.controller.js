@@ -35,9 +35,29 @@ exports.getPostsByRange = async (req, res) => {
 // get post
 exports.getPost = async (req, res) => {
   try {
-    res.status(200).json(await Post.find({ id: req.params.id }));
+    const singlePost = await Post.find({ id: req.params.id });
+    res.status(200).json(singlePost[0]);
   } catch (err) {
     res.status(500).json(err);
+  }
+};
+
+// get random post
+exports.getRandomPost = async (req, res) => {
+  try {
+    Post.countDocuments().exec((err, count) => {
+      // Get a random entry
+      const random = Math.floor(Math.random() * count);
+
+      // Again query all users but only fetch one offset by our random #
+      Post.findOne()
+        .skip(random)
+        .exec((error, result) => {
+          res.status(200).json(result);
+        });
+    });
+  } catch (err) {
+    res.status(500).json({ err });
   }
 };
 
@@ -64,7 +84,7 @@ exports.editPost = async (req, res) => {
       content,
     };
     const postEdited = await Post.findByIdAndUpdate(_id, update);
-    res.status(200).json(postEdited);
+    res.status(200).json(postEdited[0]);
   } catch (err) {
     res.status(500).json(err);
   }

@@ -11,12 +11,14 @@ import EditPost from './components/pages/EditPost/EditPostPages';
 import NewPost from './components/pages/NewPost/NewPostPages';
 import Contact from './components/pages/Contact/ContactPages';
 import NotFound from './components/pages/NotFound/NotFound';
+import RandomPost from './components/pages/RandomPost/RandomPostPage';
 
 const App = () => (
   <MainLayout>
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/posts/new" component={NewPost} />
+      <Route path="/posts/random" component={RandomPost} />
       <Route path="/posts/edit/:id" component={EditPost} />
       <Route path="/posts/:id" component={SinglePost} />
       <Route path="/posts" exact component={Posts} />

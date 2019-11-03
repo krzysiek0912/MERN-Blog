@@ -10,6 +10,9 @@ router.route('/posts').get(PostController.getPosts);
 // get posts by range
 router.route('/posts/range/:startAt/:limit').get(PostController.getPostsByRange);
 
+// get random post
+router.route('/posts/random').get(PostController.getRandomPost);
+
 // get one post
 router.route('/posts/:id').get(PostController.getPost);
 
