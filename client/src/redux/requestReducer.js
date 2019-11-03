@@ -31,7 +31,7 @@ const initialState = {
     error: null,
     success: null,
   },
-  requestEditPost: {
+  requestForm: {
     pending: false,
     error: null,
     success: null,

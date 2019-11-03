@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { getEditPost, loadEditPostRequest } from '../../../redux/postsRedux';
+import { getRequest, resetRequestObj } from '../../../redux/requestReducer';
 import EditPost from './EditPost';
-import { getRequest } from '../../../redux/requestReducer';
 
 const mapStateToProps = state => ({
   postToEdit: getEditPost(state),
@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadEditPost: id => dispatch(loadEditPostRequest(id)),
+  resetRequestObj: typeRequest => dispatch(resetRequestObj(typeRequest)),
 });
 
 export default connect(

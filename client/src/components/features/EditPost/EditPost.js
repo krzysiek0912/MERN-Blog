@@ -10,9 +10,14 @@ class EditPost extends React.Component {
     loadEditPost(id);
   }
 
+  componentWillUnmount = () => {
+    const { resetRequestObj } = this.props;
+    resetRequestObj('requestPost');
+  };
+
   render() {
     const { postToEdit, request } = this.props;
-    const { success } = request.requestEditPost;
+    const { success } = request.requestPost;
     return <div>{(success && <PostForm postToEdit={postToEdit} />) || <Spinner />}</div>;
   }
 }

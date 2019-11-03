@@ -53,28 +53,41 @@ export const loadCurentPostRequest = id => {
 };
 export const loadEditPostRequest = id => {
   return async dispatch => {
-    dispatch(startRequest('requestEditPost'));
+    dispatch(startRequest('requestPost'));
     try {
       const res = await axios.get(`${API_URL}/posts/${id}`);
 
       await new Promise((resolve, reject) => setTimeout(resolve, 500));
       dispatch(loadEditPost(res.data));
-      dispatch(endRequest('requestEditPost'));
+      dispatch(endRequest('requestPost'));
     } catch (e) {
-      dispatch(errorRequest(e.message, 'requestEditPost'));
+      dispatch(errorRequest(e.message, 'requestPost'));
     }
   };
 };
 
 export const addPostRequest = post => {
   return async dispatch => {
-    dispatch(startRequest('requestPost'));
+    dispatch(startRequest('requestForm'));
     try {
       const res = await axios.post(`${API_URL}/posts`, post);
       await new Promise((resolve, reject) => setTimeout(resolve, 500));
-      dispatch(endRequest('requestPost'));
+      dispatch(endRequest('requestForm'));
     } catch (e) {
-      dispatch(errorRequest(e.message, 'requestPost'));
+      dispatch(errorRequest(e.message, 'requestForm'));
+    }
+  };
+};
+
+export const editPostRequest = post => {
+  return async dispatch => {
+    dispatch(startRequest('requestForm'));
+    try {
+      const res = await axios.post(`${API_URL}/update/${post._id}`, post);
+      await new Promise((resolve, reject) => setTimeout(resolve, 500));
+      dispatch(endRequest('requestForm'));
+    } catch (e) {
+      dispatch(errorRequest(e.message, 'requestForm'));
     }
   };
 };

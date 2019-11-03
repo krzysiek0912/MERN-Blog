@@ -29,3 +29,19 @@ exports.addPost = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+// edit new post
+exports.editPost = async (req, res) => {
+  try {
+    const { title, author, content, _id } = req.body;
+    const update = {
+      title,
+      author,
+      content,
+    };
+    const postEdited = await Post.findByIdAndUpdate(_id, update);
+    res.status(200).json(postEdited);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
