@@ -40,12 +40,10 @@ export const loadPostsRequest = () => {
   };
 };
 
-export const loadPostsByPageRequest = page => {
+export const loadPostsByPageRequest = (page, postsPerPage = 10) => {
   return async dispatch => {
     dispatch(startRequest('requestPost'));
     try {
-      const postsPerPage = 10;
-
       const startAt = (page - 1) * postsPerPage;
       const limit = postsPerPage;
 

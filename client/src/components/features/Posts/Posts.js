@@ -8,26 +8,36 @@ import Alert from '../../common/Alert/Alert';
 
 class Posts extends React.Component {
   componentDidMount() {
-    const { loadPostsByPage } = this.props;
-    loadPostsByPage(1);
+    const { loadPostsByPage, initialPage = 1, postsPerPage } = this.props;
+
+    loadPostsByPage(initialPage, postsPerPage);
   }
 
   loadPostsPage = page => {
-    const { loadPostsByPage } = this.props;
-    loadPostsByPage(page);
+    const { loadPostsByPage, postsPerPage } = this.props;
+    loadPostsByPage(page, postsPerPage);
   };
 
   render() {
     const { loadPostsPage } = this;
-    const { posts, request, pages, presentPage } = this.props;
+    const { posts, request, pages, presentPage, pagination } = this.props;
     const { pending, error, success } = request.requestPost;
     let postsView;
+    let isPagination;
+    if (pagination === undefined) {
+      isPagination = true;
+    } else {
+      isPagination = false;
+    }
+
     if (pending === false) {
       if (success === true) {
         postsView = (
           <>
             <PostsList posts={posts} />
-            <Pagination pages={pages} onPageChange={loadPostsPage} initialPage={presentPage} />
+            {isPagination && (
+              <Pagination pages={pages} onPageChange={loadPostsPage} initialPage={presentPage} />
+            )}
           </>
         );
       } else if (error !== null) {
