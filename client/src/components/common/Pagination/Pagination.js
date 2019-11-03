@@ -24,24 +24,50 @@ class Pagination extends React.Component {
     const { presentPage } = this.state;
     const { changePage } = this;
 
+    const ArrowLeft = (
+      <li
+        className="pagination__list__item"
+        onClick={() => {
+          changePage(presentPage - 1);
+        }}
+      >
+        {' <'}
+      </li>
+    );
+
+    const PaginationList = [...Array(pages)].map((el, page) => {
+      return (
+        <li
+          key={++page}
+          onClick={() => {
+            changePage(page);
+          }}
+          className={`pagination__list__item${
+            page === presentPage ? ' pagination__list__item--active' : ''
+          }`}
+        >
+          {page}
+        </li>
+      );
+    });
+
+    const ArrowRight = (
+      <li
+        className="pagination__list__item"
+        onClick={() => {
+          changePage(presentPage + 1);
+        }}
+      >
+        {' >'}
+      </li>
+    );
+
     return (
       <div className="pagination">
         <ul className="pagination__list">
-          {[...Array(pages)].map((el, page) => {
-            return (
-              <li
-                key={++page}
-                onClick={() => {
-                  changePage(page);
-                }}
-                className={`pagination__list__item${
-                  page === presentPage ? ' pagination__list__item--active' : ''
-                }`}
-              >
-                {page}
-              </li>
-            );
-          })}
+          {presentPage > 1 && ArrowLeft}
+          {PaginationList}
+          {presentPage < pages && ArrowRight}
         </ul>
       </div>
     );
@@ -50,7 +76,7 @@ class Pagination extends React.Component {
 
 Pagination.propTypes = {
   pages: PropTypes.number.isRequired,
-  //   initialPage: PropTypes.number.isRequired,
+  initialPage: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
 };
 
