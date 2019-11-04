@@ -12,6 +12,18 @@ class Pagination extends React.Component {
     };
   }
 
+  changePageRight = () => {
+    const { presentPage } = this.state;
+    const { changePage } = this;
+    changePage(presentPage + 1);
+  };
+
+  changePageLeft = () => {
+    const { presentPage } = this.state;
+    const { changePage } = this;
+    changePage(presentPage - 1);
+  };
+
   changePage = newPage => {
     const { onPageChange } = this.props;
 
@@ -22,18 +34,7 @@ class Pagination extends React.Component {
   render() {
     const { pages } = this.props;
     const { presentPage } = this.state;
-    const { changePage } = this;
-
-    const ArrowLeft = (
-      <li
-        className="pagination__list__item"
-        onClick={() => {
-          changePage(presentPage - 1);
-        }}
-      >
-        {' <'}
-      </li>
-    );
+    const { changePage, changePageLeft, changePageRight } = this;
 
     const PaginationList = [...Array(pages)].map((el, page) => {
       return (
@@ -51,23 +52,20 @@ class Pagination extends React.Component {
       );
     });
 
-    const ArrowRight = (
-      <li
-        className="pagination__list__item"
-        onClick={() => {
-          changePage(presentPage + 1);
-        }}
-      >
-        {' >'}
-      </li>
-    );
-
     return (
       <div className="pagination">
         <ul className="pagination__list">
-          {presentPage > 1 && ArrowLeft}
+          {presentPage > 1 && (
+            <li className="pagination__list__item" onClick={changePageLeft}>
+              {'<'}
+            </li>
+          )}
           {PaginationList}
-          {presentPage < pages && ArrowRight}
+          {presentPage < pages && (
+            <li className="pagination__list__item" onClick={changePageRight}>
+              {'>'}
+            </li>
+          )}
         </ul>
       </div>
     );
