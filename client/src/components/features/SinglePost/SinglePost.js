@@ -1,5 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { FacebookProvider, Comments } from 'react-facebook';
+import { withRouter } from 'react-router-dom';
 import Post from '../Post/Post';
 import Spinner from '../../common/Spinner/Spinner';
 import NotFound from '../../pages/NotFound/NotFound';
@@ -11,13 +13,19 @@ class SinglePost extends React.Component {
   }
 
   render() {
-    const { curentPost, request } = this.props;
+    const { curentPost, request, location } = this.props;
     const { pending } = request.requestPost;
     return (
       <div>
-        {(pending && <Spinner />) || (curentPost && <Post {...curentPost} isSingle />) || (
-          <NotFound />
-        )}
+        {(pending && <Spinner />) ||
+          (curentPost && (
+            <>
+              <Post {...curentPost} isSingle />
+              <FacebookProvider appId="441193243206112">
+                <Comments href={`http://localhost:3000/${location.pathname}`} />
+              </FacebookProvider>
+            </>
+          )) || <NotFound />}
       </div>
     );
   }
@@ -27,4 +35,4 @@ SinglePost.propTypes = {
   loadCurentPost: PropTypes.func.isRequired,
 };
 
-export default SinglePost;
+export default withRouter(props => <SinglePost {...props} />);

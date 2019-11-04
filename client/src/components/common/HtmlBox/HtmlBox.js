@@ -5,9 +5,11 @@ import ReactHtmlParser from 'react-html-parser';
 const HtmlBox = ({ children, ...otherProps }) => (
   <div {...otherProps}>{ReactHtmlParser(children)}</div>
 );
-
+HtmlBox.defaultProps = {
+  children: '',
+};
 HtmlBox.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string,
 };
 
 export default HtmlBox;

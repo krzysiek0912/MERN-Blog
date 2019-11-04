@@ -11,7 +11,8 @@ import cutText from '../../../utils/cutText';
 
 const Post = ({ id, title, content, author, isSingle }) => (
   <article className="post-summary">
-    {isSingle ? <PageTitle>{title}</PageTitle> : <SmallTitle>{title}</SmallTitle>}
+    {isSingle && <PageTitle>{title}</PageTitle>}
+    {!isSingle && <SmallTitle>{title}</SmallTitle>}
     <p>Author: {author}</p>
     <HtmlBox>{isSingle ? content : cutText(content, 50)}</HtmlBox>
     {!isSingle && (
@@ -27,10 +28,16 @@ const Post = ({ id, title, content, author, isSingle }) => (
   </article>
 );
 
+Post.defaultProps = {
+  id: '',
+  title: '',
+  content: '',
+};
+
 Post.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
 };
 
 export default Post;
