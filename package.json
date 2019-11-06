@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm-run-all -p -l start:*",
-    "start:client": "cd client && yarn start",
-    "start:server": "cd server && nodemon server.js"
+    "start:server": "cd server && node server.js"
   },
   "browserslist": {
     "production": [
@@ -41,11 +40,15 @@
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "cors": "^2.8.5",
+    "mongoose": "^5.7.6",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "nodemon": "^1.19.4"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "cors": "^2.8.5",
     "eslint": "6.1.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "^6.4.0",
@@ -55,12 +58,8 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "express": "^4.17.1",
-    "helmet": "^3.21.2",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
-    "mongoose": "^5.7.6",
-    "nodemon": "^1.19.4",
     "prettier": "1.18.2"
   },
   "husky": {
