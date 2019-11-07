@@ -89,39 +89,3 @@ exports.editPost = async (req, res) => {
     res.status(500).json(err);
   }
 };
-
-// rating add
-exports.ratingAdd = async (req, res) => {
-  try {
-    const { _id } = req.body;
-    let { rating } = req.body;
-    rating++;
-    const update = {
-      rating,
-    };
-    const postEdited = await Post.findByIdAndUpdate(_id, update);
-    res.status(200).json(postEdited);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-// rating add
-exports.ratingSub = async (req, res) => {
-  try {
-    console.log(req.body);
-    const { _id } = req.body;
-    let { rating } = req.body;
-    rating++;
-    const update = {
-      rating,
-    };
-    console.log('update', update);
-    const postEdited = await Post.findByIdAndUpdate('21sd42sdsaaf', update);
-    console.log(postEdited);
-    res.status(200).json(postEdited);
-  } catch (err) {
-    console.log('error');
-    res.status(500).json(err);
-  }
-};
