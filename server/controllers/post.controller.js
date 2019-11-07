@@ -22,7 +22,6 @@ exports.getPostsByRange = async (req, res) => {
       .skip(startAt)
       .limit(limit);
     const amount = await Post.countDocuments();
-
     res.status(200).json({
       posts,
       amount,

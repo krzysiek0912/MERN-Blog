@@ -21,9 +21,7 @@ app.use('/api', postRoutes);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/../client/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(`${__dirname}/../client/build/index.html`));
-});
+
 // connects our back end code with the database
 mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -33,6 +31,10 @@ db.once('open', () => {
   // loadTestData();
 });
 db.on('error', err => console.log(`Error ${err}`));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(`${__dirname}/../client/build/index.html`));
+});
 
 app.listen(config.PORT, () => {
   console.log('Server is running on Port:', config.PORT);

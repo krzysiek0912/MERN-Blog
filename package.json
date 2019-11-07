@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm-run-all -p -l start:*",
-    "start:server": "cd server && node server.js"
+    "start:server": "cd server && nodemon server.js"
   },
   "browserslist": {
     "production": [
