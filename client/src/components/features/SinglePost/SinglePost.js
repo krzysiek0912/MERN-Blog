@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { FacebookProvider, Comments, ShareButton } from 'react-facebook';
 import { withRouter } from 'react-router-dom';
 import { BASE_URL } from '../../../config';
-import Post from '../Post/Post';
+import Post from '../Post/PostContainer';
 import Spinner from '../../common/Spinner/Spinner';
 import NotFound from '../../pages/NotFound/NotFound';
 
@@ -21,7 +21,7 @@ class SinglePost extends React.Component {
         {(pending && <Spinner />) ||
           (curentPost && (
             <>
-              <Post {...curentPost} isSingle />
+              <Post post={curentPost} isSingle />
               <FacebookProvider appId="441193243206112">
                 <Comments href={`${BASE_URL}${location.pathname}`} />
                 <ShareButton href={`${BASE_URL}${location.pathname}`}>Share</ShareButton>

@@ -34,7 +34,6 @@ export const loadPostsRequest = () => {
     dispatch(startRequest('requestPost'));
     try {
       const res = await axios.get(`${API_URL}/posts`);
-      // await new Promise(resolve => setTimeout(resolve, 100));
       dispatch(loadPosts(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -73,8 +72,6 @@ export const loadCurentPostRequest = id => {
     dispatch(startRequest('requestPost'));
     try {
       const res = await axios.get(`${API_URL}/posts/${id}`);
-
-      // await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(loadCurentPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -88,8 +85,6 @@ export const loadRandomPostRequest = () => {
     dispatch(startRequest('requestPost'));
     try {
       const res = await axios.get(`${API_URL}/posts/random`);
-
-      // await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(loadRandomPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -103,8 +98,6 @@ export const loadEditPostRequest = id => {
     dispatch(startRequest('requestPost'));
     try {
       const res = await axios.get(`${API_URL}/posts/${id}`);
-
-      // await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(loadEditPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -118,7 +111,6 @@ export const addPostRequest = post => {
     dispatch(startRequest('requestForm'));
     try {
       await axios.post(`${API_URL}/posts`, post);
-      // await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));
@@ -131,7 +123,21 @@ export const editPostRequest = post => {
     dispatch(startRequest('requestForm'));
     try {
       await axios.post(`${API_URL}/update/${post._id}`, post);
-      // await new Promise(resolve => setTimeout(resolve, 10));
+      dispatch(endRequest('requestForm'));
+    } catch (e) {
+      dispatch(errorRequest(e.message, 'requestForm'));
+    }
+  };
+};
+export const ratingRequest = (post, ratingType) => {
+  return async dispatch => {
+    dispatch(startRequest('requestForm'));
+    try {
+      if (ratingType === 'add') post.rating++;
+      if (ratingType === 'sub') post.rating--;
+
+      await axios.post(`${API_URL}/update/${post._id}`, post);
+
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));

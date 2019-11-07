@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import {
   getPosts,
-  // loadPostsRequest,
   loadPostsByPageRequest,
   getPages,
   getCurentPages,
