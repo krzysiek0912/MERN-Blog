@@ -131,7 +131,7 @@ export const editPostRequest = post => {
     dispatch(startRequest('requestForm'));
     try {
       await axios.post(`${API_URL}/update/${post._id}`, post);
-      await new Promise(resolve => resolve);
+      await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));
