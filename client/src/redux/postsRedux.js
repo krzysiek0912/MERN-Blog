@@ -51,7 +51,7 @@ export const loadPostsByPageRequest = (page, postsPerPage = 10) => {
       const limit = postsPerPage;
 
       const res = await axios.get(`${API_URL}/posts/range/${startAt}/${limit}`);
-      await new Promise(resolve => resolve);
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       const payload = {
         posts: res.data.posts,
@@ -74,7 +74,7 @@ export const loadCurentPostRequest = id => {
     try {
       const res = await axios.get(`${API_URL}/posts/${id}`);
 
-      await new Promise(resolve => resolve);
+      await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(loadCurentPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -89,7 +89,7 @@ export const loadRandomPostRequest = () => {
     try {
       const res = await axios.get(`${API_URL}/posts/random`);
 
-      await new Promise(resolve => resolve);
+      await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(loadRandomPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -104,7 +104,7 @@ export const loadEditPostRequest = id => {
     try {
       const res = await axios.get(`${API_URL}/posts/${id}`);
 
-      await new Promise(resolve => resolve);
+      await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(loadEditPost(res.data));
       dispatch(endRequest('requestPost'));
     } catch (e) {
@@ -118,7 +118,7 @@ export const addPostRequest = post => {
     dispatch(startRequest('requestForm'));
     try {
       await axios.post(`${API_URL}/posts`, post);
-      await new Promise(resolve => resolve);
+      await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));
@@ -131,7 +131,7 @@ export const editPostRequest = post => {
     dispatch(startRequest('requestForm'));
     try {
       await axios.post(`${API_URL}/update/${post._id}`, post);
-      await new Promise(resolve => resolve);
+      await new Promise(resolve => setTimeout(resolve, 10));
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));
