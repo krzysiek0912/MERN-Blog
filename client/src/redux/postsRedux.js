@@ -122,7 +122,7 @@ export const editPostRequest = post => {
   return async dispatch => {
     dispatch(startRequest('requestForm'));
     try {
-      await axios.post(`${API_URL}/update/${post._id}`, post);
+      await axios.put(`${API_URL}/posts/${post._id}`, post);
       dispatch(endRequest('requestForm'));
     } catch (e) {
       dispatch(errorRequest(e.message, 'requestForm'));
@@ -135,7 +135,7 @@ export const ratingRequest = (post, ratingType) => {
     try {
       if (ratingType === 'add') post.rating++;
       if (ratingType === 'sub' && post.rating > 0) post.rating--;
-      await axios.post(`${API_URL}/update/${post._id}`, post);
+      await axios.put(`${API_URL}/posts/${post._id}`, post);
 
       dispatch(endRequest('requestRating'));
     } catch (e) {

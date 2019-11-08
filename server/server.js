@@ -23,7 +23,11 @@ app.use('/api', postRoutes);
 app.use(express.static(path.join(__dirname, '/../client/build')));
 
 // connects our back end code with the database
-mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.DB, {
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 const db = mongoose.connection;
 
 db.once('open', () => {

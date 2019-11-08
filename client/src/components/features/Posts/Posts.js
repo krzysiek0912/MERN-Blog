@@ -20,22 +20,16 @@ class Posts extends React.Component {
 
   render() {
     const { loadPostsPage } = this;
-    const { posts, request, pages, presentPage, pagination } = this.props;
+    const { posts, request, pages, presentPage, pagination = true } = this.props;
     const { pending, error, success } = request.requestPost;
     let postsView;
-    let isPagination;
-    if (pagination === undefined) {
-      isPagination = true;
-    } else {
-      isPagination = false;
-    }
 
     if (pending === false) {
       if (success === true) {
         postsView = (
           <>
             <PostsList posts={posts} />
-            {isPagination && (
+            {pagination && (
               <Pagination pages={pages} onPageChange={loadPostsPage} initialPage={presentPage} />
             )}
           </>

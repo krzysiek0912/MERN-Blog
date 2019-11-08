@@ -20,6 +20,6 @@ router.route('/posts/:id').get(PostController.getPost);
 router.route('/posts').post(PostController.addPost);
 
 // edit posts
-router.route('/update/:id').post(PostController.editPost);
+router.route('/posts/:id').put(PostController.editPost);
 
 module.exports = router;
