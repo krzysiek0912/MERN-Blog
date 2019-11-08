@@ -134,8 +134,7 @@ export const ratingRequest = (post, ratingType) => {
     dispatch(startRequest('requestRating'));
     try {
       if (ratingType === 'add') post.rating++;
-      if (ratingType === 'sub') post.rating--;
-
+      if (ratingType === 'sub' && post.rating > 0) post.rating--;
       await axios.post(`${API_URL}/update/${post._id}`, post);
 
       dispatch(endRequest('requestRating'));
