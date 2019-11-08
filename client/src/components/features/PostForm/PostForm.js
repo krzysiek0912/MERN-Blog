@@ -17,6 +17,7 @@ class PostForm extends React.Component {
       title: '',
       author: '',
       content: '',
+      rating: 0,
     },
     isEdit: false,
   };
